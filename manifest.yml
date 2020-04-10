@@ -1,0 +1,19 @@
+applications:
+- command: npm start
+  domain: null
+  env:
+    NPM_CONFIG_PRODUCTION: false
+  host: null
+  instances: 1
+  memory: 512MB
+  name: BotWithToneAnalyzer
+  path: .
+  routes:
+  - route: BotWithTone.us-south.cf.appdomain.cloud
+declared-services:
+  conversation-service:
+    label: conversation
+    plan: free
+  tone-analyzer-standard:
+    label: tone_analyzer
+    plan: standard
