@@ -1,0 +1,544 @@
+{
+  "intents": [
+    {
+      "intent": "goodbyes",
+      "examples": [
+        {
+          "text": "babye"
+        },
+        {
+          "text": "bye"
+        },
+        {
+          "text": "thankyou"
+        },
+        {
+          "text": "goodbye"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "help",
+      "examples": [
+        {
+          "text": "what next ?"
+        },
+        {
+          "text": "What can I do here ?"
+        },
+        {
+          "text": "need help"
+        },
+        {
+          "text": "What to type ?"
+        },
+        {
+          "text": "help"
+        }
+      ]
+    },
+    {
+      "intent": "booking",
+      "examples": [
+        {
+          "text": "I want a sim card"
+        },
+        {
+          "text": "can I get a SIM card?"
+        },
+        {
+          "text": "I would like to have a SIM card"
+        },
+        {
+          "text": "please issue a SIM card for me"
+        },
+        {
+          "text": "book a sim card"
+        }
+      ]
+    },
+    {
+      "intent": "querry",
+      "examples": [
+        {
+          "text": "can I shift from prepaid to postpaid?"
+        },
+        {
+          "text": "I want to shift from postpaid package to prepaid"
+        },
+        {
+          "text": "I want to change my package"
+        },
+        {
+          "text": "I want to shift to postpaid"
+        },
+        {
+          "text": "I want to change to prepaid"
+        },
+        {
+          "text": "I want to shift to prepaid"
+        },
+        {
+          "text": "whats my balance?"
+        },
+        {
+          "text": "what is my balance?"
+        },
+        {
+          "text": "I want to know my balance"
+        },
+        {
+          "text": "Why am I low on balance?"
+        },
+        {
+          "text": "My balance is low"
+        },
+        {
+          "text": "My balance got zero suddenly"
+        },
+        {
+          "text": "I can not make calls to anyone"
+        },
+        {
+          "text": "How many SIM cards can I get on my NIC?"
+        },
+        {
+          "text": "My balance got empty"
+        },
+        {
+          "text": "I don't have any credit"
+        },
+        {
+          "text": "why do I not have any credit in my phone?"
+        },
+        {
+          "text": "my credit is zero"
+        },
+        {
+          "text": "how can I change my package?"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "greetings",
+      "examples": [
+        {
+          "text": "how have you been doing?"
+        },
+        {
+          "text": "Hi"
+        },
+        {
+          "text": "Hello"
+        },
+        {
+          "text": "hola"
+        },
+        {
+          "text": "Hey there"
+        },
+        {
+          "text": "Good Morning"
+        },
+        {
+          "text": "Good Evening"
+        },
+        {
+          "text": "how are you?"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "showpackages",
+      "examples": [
+        {
+          "text": "postpaid"
+        },
+        {
+          "text": "show me the prepaid packages"
+        },
+        {
+          "text": "show me prepaid package"
+        },
+        {
+          "text": "show me postpaid package"
+        },
+        {
+          "text": "postpaid package"
+        },
+        {
+          "text": "prepaid package"
+        },
+        {
+          "text": "prepaid"
+        },
+        {
+          "text": "tell me the packages"
+        },
+        {
+          "text": "I want to see packages"
+        },
+        {
+          "text": "I want to see internet packages"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "packages",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "prepaid package",
+          "synonyms": [
+            "prepaid",
+            "pre paid",
+            "prepaid package"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "postpaid package",
+          "synonyms": [
+            "postpaid",
+            "post paid",
+            "postpaid package"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "sim",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "sim",
+          "synonyms": [
+            "sim card",
+            "sim",
+            "network sim"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hey I feel like you are sad! Whats up?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_6_1579760432065",
+      "conditions": "#greetings && $user.tone.emotion.current == \"sad\"",
+      "dialog_node": "node_5_1579761413587",
+      "previous_sibling": "node_1_1579761366244"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I am glad. Thats really great"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_6_1579760432065",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_6_1579760432065"
+      },
+      "conditions": "$user.tone.emotion.current == \"joy\" && #greetings",
+      "dialog_node": "node_1_1579761366244"
+    },
+    {
+      "type": "standard",
+      "parent": "node_5_1470248758090",
+      "dialog_node": "node_1_1472662842845"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Thank you for contacting me sir, Our representative will call you back as soon as possible"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1472665334598",
+      "conditions": "$user.tone.emotion.current == \"neutral\" || $user.tone.emotion.current == \"confident\"",
+      "dialog_node": "node_4_1579766597645",
+      "previous_sibling": "node_7_1472665570766"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "I am extremely sorry for the inconvenience. I will connect you with someone as soon as possible to get the whole details."
+      },
+      "parent": "node_3_1472665334598",
+      "conditions": "$user.tone.emotion.current == \"anger\" || $user.tone.emotion.current == \"sadness\" || $user.tone.emotion.current == \"fear\" || $user.tone.emotion.current == \"disgust\"",
+      "dialog_node": "node_5_1472665413763",
+      "previous_sibling": "node_4_1579766597645"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "<i class=\"em em-heart\"></i>Always here to help you sir."
+      },
+      "parent": "node_3_1472665334598",
+      "conditions": "true",
+      "dialog_node": "node_6_1472665533113",
+      "previous_sibling": "node_5_1472665413763"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Sir i am extremely sorry but you have to tell me more about the problem"
+      },
+      "parent": "node_3_1472665334598",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_3_1472665334598"
+      },
+      "conditions": "#help && intents[0].confidence > 0.7",
+      "dialog_node": "node_7_1472665570766"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": {
+          "values": [
+            ""
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_2_1471562391421",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_2_1471562391421"
+      },
+      "conditions": "true",
+      "dialog_node": "node_28_1472062677862",
+      "previous_sibling": "node_26_1472062571307"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "I'm sorry if you feel that way."
+      },
+      "parent": "node_2_1471562391421",
+      "conditions": "$user.tone.emotion.current == \"sadness\" || $user.tone.emotion.current == \"anger\" || $user.tone.emotion.current == \"fear\" || $user.tone.emotion.current == \"disgust\"",
+      "dialog_node": "node_26_1472062571307",
+      "previous_sibling": "node_24_1472062523020"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "your SIM card has been booked. Thank you for choosing Watson."
+      },
+      "parent": "node_2_1471562391421",
+      "conditions": "$user.tone.emotion.current == \"joy\"",
+      "dialog_node": "node_24_1472062523020"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I am sorry that you feel that way."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_2_1472240789937"
+      },
+      "conditions": "$user.tone.emotion.current == \"anger\" ||   $user.tone.emotion.current == \"sad\" ||  $user.tone.emotion.current == \"fear\" || $user.tone.emotion.current == \"disgust\"",
+      "dialog_node": "node_8_1579782509729",
+      "previous_sibling": "node_6_1579782463725"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "Can you please tell me more about your problem? so that we can act on it immediately."
+      },
+      "context": {},
+      "conditions": "#querry && intents[0].confidence > 0.7",
+      "dialog_node": "node_3_1472665334598",
+      "previous_sibling": "node_2_1472240789937"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "I am sorry i dont understand what you are asking? Can you try to rephrase?"
+      },
+      "conditions": "anything_else",
+      "dialog_node": "node_29_1469838197765",
+      "previous_sibling": "node_5_1579767168579"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": "I am here to talk to you about your sim card booking, to show you our prepaid and postpaid pacakges and to answer your other querries about your credit etc."
+      },
+      "conditions": "#help && intents[0].confidence > 0.7",
+      "dialog_node": "node_2_1472240789937",
+      "previous_sibling": "node_6_1579760432065"
+    },
+    {
+      "type": "standard",
+      "title": "greetings",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hello! What can I do for you?"
+              },
+              {
+                "text": "Hey!! how can I help you??"
+              },
+              {
+                "text": "Hey there!! Good to see you. How may I help you?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "conditions": "#greetings",
+      "dialog_node": "node_6_1579760432065",
+      "previous_sibling": "node_5_1470248758090"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": {
+          "values": [
+            "Sir ill book a sim for you right away",
+            "Sure Sir. Already booking a sim for you",
+            "Already booked a sim for you"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "context": {},
+      "conditions": "#booking && @sim",
+      "dialog_node": "node_2_1471562391421",
+      "previous_sibling": "node_3_1472665334598"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Wow I am glad that you are happy"
+              },
+              {
+                "text": "You sound happy. Thats great!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_2_1472240789937"
+      },
+      "conditions": "$user.tone.emotion.current == \"Joy\"",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_6_1579782463725",
+      "previous_sibling": "node_2_1471562391421"
+    },
+    {
+      "type": "standard",
+      "title": "goodbyes",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Goodbye"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#goodbyes",
+      "dialog_node": "node_5_1579767168579",
+      "previous_sibling": "node_8_1579782509729"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "text": {
+          "values": [
+            "Hello! My name is Watson and I am a network operator.",
+            "Hello! I am Watson and I am a network operator."
+          ],
+          "selection_policy": "random"
+        }
+      },
+      "conditions": "conversation_start",
+      "dialog_node": "node_5_1470248758090"
+    }
+  ],
+  "counterexamples": [],
+  "learning_opt_out": false,
+  "name": "Network-Operator",
+  "language": "en",
+  "description": "A conversation bot for network operations"
+}
