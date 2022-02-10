@@ -26,7 +26,7 @@
     "extend": "^3.0.2",
     "json-query": "^2.2.2",
     "nano": "^6.4.4",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "twitter-node-client": "^0.0.6",
     "uuid": "^3.3.2",
     "watson-developer-cloud": "^3.7.0"
